@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jurassic Krabi Explorer - หน้าแรก</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    header {
+      background: url('https://cms.dmpcdn.com/travel/2025/07/09/cf632ea0-5c78-11f0-8618-abd5240192a5_webp_original.webp
+') no-repeat center center/cover;
+color: white;
+          text-align: center;
+          padding: 80px 20px;
+          position: relative;
+          overflow: hidden;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      header .overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 10px;
+        display: inline-block;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 3px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      }
+
+      header p {
+        font-size: 1.2em;
+        margin-top: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      }
+
+      nav {
+        background-color: #3A5F0B;
+        text-align: center;
+        padding: 15px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      nav a:hover {
+        background-color: #4CAF50;
+        transform: translateY(-2px);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .map-container {
+        position: relative;
+        width: 100%;
+        flex: 2;
+        min-width: 600px;
+        max-width: 1200px;
+        margin: 0;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        background-color: #2d3e31;
+      }
+
+      .map-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 15px;
+      }
+
+      .map-hotspot {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        background-color: rgba(40, 167, 69, 0.7);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        line-height: 1.2;
+        padding: 5px;
+        box-sizing: border-box;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        z-index: 10;
+      }
+
+      .map-hotspot:hover {
+        background-color: #28a745;
+        transform: scale(1.1);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .map-hotspot img {
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 3px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+      }
+
+      .map-hotspot span {
+        font-size: 0.65em;
+        font-weight: bold;
+        display: block;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      #hotspot-railay {
+        top: 60%; left: 60%;
+      }
+
+      #hotspot-palm {
+        top: 25%; left: 45%;
+      }
+
+      #hotspot-bangkan {
+        top: 40%; left: 50%;
+      }
+
+      #hotspot-khaonam {
+        top: 35%; left: 30%;
+      }
+
+      #hotspot-klongnamsai {
+        top: 40%; left: 60%;
+      }
+
+      #hotspot-thamtoluang {
+        top: 30%; left: 70%;
+      }
+
+      #hotspot-atv {
+        top: 40%; left: 75%;
+      }
+
+      #hotspot-huayto {
+        top: 60%; left: 75%;
+      }
+
+      .location-info {
+        flex: 1;
+        min-width: 300px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        border: none !important;
+      }
+
+      .location-info.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .location-info img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .location-info h3 {
+        color: #3A5F0B;
+        margin-top: 0;
+        font-size: 1.8em;
+      }
+
+      .location-info p {
+        font-size: 0.9em;
+        color: #555;
+      }
+
+      .news-section {
+        display: none;
+      }
+
+      @media (max-width: 1024px) {
+        .container {
+          align-items: center;
+        }
+
+        .map-container {
+          min-width: unset;
+        }
+
+        .location-info {
+          min-width: unset;
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 2.2em;
+        }
+
+        header p {
+          font-size: 1em;
+        }
+
+        nav a {
+          padding: 8px 12px;
+          margin: 0 5px;
+          font-size: 0.9em;
+        }
+
+        .map-hotspot {
+          width: 60px;
+          height: 60px;
+          padding: 3px;
+        }
+
+        .map-hotspot img {
+          width: 70%;
+          height: 70%;
+        }
+
+        .map-hotspot span {
+          font-size: 0.55em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        nav a {
+          display: block;
+          margin: 5px auto;
+        }
+
+        .map-hotspot {
+          width: 50px;
+          height: 50px;
+        }
+
+        .map-hotspot img {
+          width: 60%;
+          height: 60%;
+        }
+
+        .map-hotspot span {
+          font-size: 0.5em;
+        }
+      }
+
+      footer {
+        background-color: #3A5F0B;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+      }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="overlay">
+      <h1>Jurassic Krabi Explorer</h1>
+      <p>เดินทางสู่โลกจูราสสิคในจังหวัดกระบี่!</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/MYaJxwY">หน้าแรก</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/MYamgLx">สถานที่ถ่ายทำ</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/dPYRxwj">เกี่ยวกับภาพยนตร์</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/ogjqrMd">ติดต่อเรา</a>
+  </nav>
+
+  <div class="container">
+    <div class="map-container">
+      <img src="https://scontent.furt1-1.fna.fbcdn.net/v/t39.30808-6/531979222_1999043177498638_6017736161943449376_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=Zpm2e0C7EgMQ7kNvwGFD78M&_nc_oc=AdlV0Xm7pwr-pXR85xxnii3-UDo3H0J2Waf8oIkMYiGO3gEwVGC66_WNf-lHJNRiSQs&_nc_zt=23&_nc_ht=scontent.furt1-1.fna&_nc_gid=cLZK1QEV14lyXN242At3OA&oh=00_AfVgjLg-81Ew7tqk7hQfu7CJ_UWNpIwd2Q4Srz_Dkamw6Q&oe=68B70D60" alt="แผนที่จังหวัดกระบี่">
+
+      <a href="https://codepen.io/aotrwhqz-the-looper/pen/empvqvE" class="map-hotspot" id="hotspot-railay" data-img="https://s359.kapook.com/pagebuilder/2de661e3-8f91-417a-bd1f-44305da28f9f.jpg" data-title="อ่าวไร่เลย์" data-description="อ่าวไร่เลย์เป็นหาดที่สวยงามล้อมรอบด้วยหน้าผาหินปูนสูงตระหง่านและทะเลสีเขียวมรกต">
+        <img src="https://s359.kapook.com/pagebuilder/2de661e3-8f91-417a-bd1f-44305da28f9f.jpg" alt="อ่าวไร่เลย์">
+        <span>อ่าวไร่เลย์</span>
+      </a>
+      <a href="https://codepen.io/aotrwhqz-the-looper/pen/bNVqXvp" class="map-hotspot" id="hotspot-palm" data-img="https://mpics.mgronline.com/pics/Images/565000001637302.JPEG" data-title="สวนปาล์ม" data-description="พื้นที่สวนปาล์มอันกว้างใหญ่ที่ให้ความรู้สึกเหมือนอยู่ในป่าดงดิบ มีพืชพรรณเขียวขจีตลอดปี">
+        <img src="https://mpics.mgronline.com/pics/Images/565000001637302.JPEG" alt="สวนปาล์ม">
+        <span>สวนปาล์ม</span>
+      </a>
+      <a href="https://codepen.io/aotrwhqz-the-looper/pen/zxvZgWW" class="map-hotspot" id="hotspot-bangkan" data-img="https://tatdataapi.io/dmc-images/d80fd085-5b42-426f-80e9-7a3789dc7130.jpeg" data-title="บ้านบางกัน" data-description="หมู่บ้านเล็กๆ ที่ตั้งอยู่กลางธรรมชาติที่อุดมสมบูรณ์ รายล้อมด้วยภูเขาและลำธารใสสะอาด">
+        <img src="https://tatdataapi.io/dmc-images/d80fd085-5b42-426f-80e9-7a3789dc7130.jpeg" alt="บ้านบางกัน">
+        <span>บ้านบางกัน</span>
+      </a>
+      <a href="https://codepen.io/aotrwhqz-the-looper/pen/myeWNGb" class="map-hotspot" id="hotspot-khaonam" data-img="https://tatdataapi.io/dmc-images/37ff4556-5525-43cb-8f7b-e5277069f685.jpeg" data-title="เขาขนาบน้ำ" data-description="สัญลักษณ์ของกระบี่ เป็นภูเขาหินปูนสองลูกที่ตั้งขนาบลำคลองและมีถ้ำที่น่าสนใจอยู่ภายใน">
+        <img src="https://tatdataapi.io/dmc-images/37ff4556-5525-43cb-8f7b-e5277069f685.jpeg" alt="เขาขนาบน้ำ">
+        <span>เขาขนาบน้ำ</span>
+      </a>
+      <a href="https://codepen.io/aotrwhqz-the-looper/pen/RNWpXJX" class="map-hotspot" id="hotspot-klongnamsai" data-img="https://mpics.mgronline.com/pics/Images/566000008605908.JPEG" data-title="คลองน้ำใส" data-description="คลองน้ำใสที่มีน้ำสีฟ้ามรกตใสสะอาด เหมาะสำหรับการว่ายน้ำและพักผ่อนริมน้ำ">
+        <img src="https://tatdataapi.io/dmc-images/37ff4556-5525-43cb-8f7b-e5277069f685.jpeg" alt="คลองน้ำใส">
+        <span>คลองน้ำใส</span>
+      </a>
+      <a href="https://codepen.io/aotrwhqz-the-looper/pen/NPGpQLR" class="map-hotspot" id="hotspot-thamtoluang" data-img="https://www.khaosod.co.th/wpapp/uploads/2021/03/E6F73ABD-1985-4625-8341-C33F9ED88230.jpeg" data-title="ถ้ำโต๊ะหลวง" data-description="ถ้ำขนาดใหญ่ที่มีหินงอกหินย้อยรูปร่างแปลกตาและเป็นที่อยู่อาศัยของค้างคาว">
+        <img src="https://www.khaosod.co.th/wpapp/uploads/2021/03/E6F73ABD-1985-4625-8341-C33F9ED88230.jpeg" alt="ถ้ำโต๊ะหลวง">
+        <span>ถ้ำโต๊ะหลวง</span>
+      </a>
+      <a href="https://codepen.io/aotrwhqz-the-looper/pen/WbQpVKo" class="map-hotspot" id="hotspot-atv" data-img="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/11/c8/bb/db.jpg" data-title="ATV Nature View Point" data-description="จุดชมวิวธรรมชาติที่สวยงาม สามารถขับ ATV ลุยป่าและชมทิวทัศน์รอบด้าน">
+        <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/11/c8/bb/db.jpg">
+        <span>ATV</span>
+      </a>
+      <a href="https://codepen.io/aotrwhqz-the-looper/pen/LEpWwmM" class="map-hotspot" id="hotspot-huayto" data-img="https://www.matichon.co.th/wp-content/uploads/2017/01/201701191110144-20151120115129.jpg" data-title="น้ำตกห้วยโต้" data-description="น้ำตกขนาดกลางที่ไหลลดหลั่นลงมาเป็นชั้นๆ บรรยากาศร่มรื่น เหมาะสำหรับการพักผ่อน">
+        <img src="https://www.matichon.co.th/wp-content/uploads/2017/01/201701191110144-20151120115129.jpg" alt="น้ำตกห้วยโต้">
+        <span>น้ำตกห้วยโต้</span>
+      </a>
+
+    </div>
+
+    <div class="location-info" id="locationInfoBox">
+      <h3>ชี้ที่จุดบนแผนที่</h3>
+      <p>เพื่อดูข้อมูลสถานที่นั้นๆ</p>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Jurassic Krabi Explorer | สนับสนุนโดย สำนักงานประชาสัมพันธ์ จังหวัดกระบี่
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hotspots = document.querySelectorAll('.map-hotspot');
+      const locationInfoBox = document.getElementById('locationInfoBox');
+      hotspots.forEach(hotspot => {
+        hotspot.addEventListener('mouseenter', (event) => {
+          const imgSrc = hotspot.dataset.img;
+          const title = hotspot.dataset.title;
+          const description = hotspot.dataset.description;
+          if (imgSrc && title && description) {
+            locationInfoBox.innerHTML = `
+                            <img src="${imgSrc}" alt="${title}">
+                            <h3>${title}</h3>
+                            <p>${description}</p>
+                        `;
+            locationInfoBox.classList.add('visible');
+          }
+        });
+        hotspot.addEventListener('mouseleave', () => {
+          locationInfoBox.classList.remove('visible');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
