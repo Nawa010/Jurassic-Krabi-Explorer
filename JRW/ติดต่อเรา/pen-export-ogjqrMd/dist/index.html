@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>ติดต่อเรา</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ติดต่อเรา - Jurassic Krabi Explorer</title>
+  <!-- ลิงก์ไปยัง Font Prompt จาก Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Prompt', sans-serif;
+      background-color: #1a1f1b;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: url('https://cms.dmpcdn.com/travel/2025/07/09/cf632ea0-5c78-11f0-8618-abd5240192a5_webp_original.webp') no-repeat center/cover;
+      padding: 150px 20px;
+      text-align: center;
+      position: relative;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px 20px;
+      border-radius: 15px;
+    }
+
+    header h1 {
+      font-size: 50px;
+      color: #fff;
+      text-shadow: 3px 3px 10px #000;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 30px;
+      color: #f0f0f0;
+      text-shadow: 2px 2px 5px #000;
+      margin: 10px 0 0;
+    }
+
+    nav {
+      background-color: #3A5F0B;
+      text-align: center;
+      padding: 15px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #4CAF50;
+      transform: translateY(-2px);
+    }
+
+    .content-section {
+      background-color: #2d3e31;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .content-section h2 {
+      font-size: 3em;
+      color: #28a745;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .content-section p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto 30px auto;
+      padding: 20px;
+      background-color: #3a4b3d;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      text-align: left;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #f0f0f0;
+    }
+
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background-color: #4a5c4d;
+      color: #fff;
+      font-family: 'Prompt', sans-serif;
+      font-size: 1em;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .contact-form button {
+      background-color: #28a745;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .contact-form button:hover {
+      background-color: #218838;
+    }
+
+    /* --- MAP --- */
+    .map-placeholder {
+      width: 100%;
+      max-width: 1000px;
+      height: 400px;
+      margin: 0 auto 30px auto;
+      /* จัดกึ่งกลาง */
+      overflow: hidden;
+    }
+
+    .map-placeholder iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .contact-details {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+      transform: translateX(-40px);
+      /* เลื่อนซ้าย */
+    }
+
+    .contact-item {
+      background-color: #3a4b3d;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      flex: 1;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      /* จัดหัวข้อให้อยู่บน */
+      align-items: center;
+      /* จัดให้อยู่ตรงกลางแนวนอน */
+    }
+
+    .contact-item h3 {
+      color: #28a745;
+      margin: 0 0 15px 0;
+      /* เว้นระยะด้านล่างเท่ากัน */
+      font-size: 1.5em;
+    }
+
+    .contact-item p {
+      margin: 0;
+      font-size: 1em;
+      color: #f0f0f0;
+    }
+
+    .contact-item a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-item a:hover {
+      color: #4CAF50;
+    }
+
+    .social-media {
+      margin-top: 50px;
+    }
+
+    .social-media a {
+      color: #f0f0f0;
+      font-size: 2.5em;
+      margin: 0 15px;
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .social-media a:hover {
+      color: #28a745;
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 40px;
+      }
+
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+
+      .content-section h2 {
+        font-size: 2.5em;
+      }
+
+      .contact-form {
+        padding: 15px;
+      }
+
+      .contact-form input[type="text"],
+      .contact-form input[type="email"],
+      .contact-form textarea {
+        width: calc(100% - 10px);
+      }
+
+      .contact-details {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .contact-item {
+        width: 90%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 30px;
+      }
+
+      header p {
+        font-size: 20px;
+      }
+
+      .content-section h2 {
+        font-size: 2em;
+      }
+
+      .social-media a {
+        font-size: 2em;
+        margin: 0 10px;
+      }
+    }
+
+    footer {
+      background-color: #3A5F0B;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Styles copied from about_movie.html for consistency, ensuring gallery-item p font size is correct */
+    .content-section .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+      justify-items: center;
+    }
+
+    .content-section .gallery.cast-gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .content-section .gallery img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .content-section .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .gallery-item {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .gallery-item p {
+      font-size: 1.6em;
+      /* Adjusted to 1.6em as per previous request */
+      color: #ccc;
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 80px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+  <!-- เพิ่ม Font Awesome สำหรับไอคอนโซเชียลมีเดีย -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <header>
+    <div class="overlay">
+      <h1>ติดต่อเรา</h1>
+      <p>เราพร้อมให้บริการและตอบทุกคำถามของคุณ!</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/MYaJxwY">หน้าแรก</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/MYamgLx">สถานที่ถ่ายทำ</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/dPYRxwj">เกี่ยวกับภาพยนตร์</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/ogjqrMd">ติดต่อเรา</a>
+  </nav>
+
+  <div class="container">
+    <div class="content-section">
+      <h2>สำนักงานของเรา</h2>
+      <p>
+        คุณสามารถเยี่ยมชมสำนักงานของเราได้ที่:
+      </p>
+        <div class="map-placeholder">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13287.490742862652!2d98.91610572008732!3d8.061167563976609!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30519497c35fa2c5%3A0xdd6d79911db2758b!2z4Lio4Liy4Lil4Liy4LiB4Lil4Liy4LiH4LiI4Lix4LiH4Lir4Lin4Lix4LiU4LiB4Lij4Liw4Lia4Li14LmI!5e0!3m2!1sth!2sth!4v1755762200637!5m2!1sth!2sth" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+            </p>
+            <div class="contact-details">
+                <div class="contact-item">
+          <h3>ที่อยู่</h3>
+          <p>ศาลากลางจังหวัดกระบี่ 9/10 ถนนอุตรกิจ ตำบลปากน้ำ อำเภอเมือง Krabi, Thailand, Krabi 81000</p>
+          <p></p>
+        </div>
+        <div class="contact-item">
+          <h3>โทรศัพท์</h3>
+          075-612-611
+          </a></p>
+        </div>
+        <div class="contact-item">
+          <h3>อีเมล</h3>
+          pr_krabi612@hotmail.com
+          </a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>เชื่อมต่อกับเรา</h2>
+      <p>
+        ติดตามข่าวสารและกิจกรรมล่าสุดของเราได้ทางโซเชียลมีเดีย: ประชาสัมพันธ์จังหวัดกระบี่
+
+      </p>
+      <div class="social-media">
+        <a href="https://www.facebook.com/profile.php?id=100066588544801" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
+
+      </div>
+    </div>
+
+    <footer>
+      © 2025 Jurassic Krabi Explorer | สนับสนุนโดย สำนักงานประชาสัมพันธ์ จังหวัดกระบี่
+    </footer>
+</body>
+
+</html>
+<!-- partial -->
+  
+</body>
+</html>

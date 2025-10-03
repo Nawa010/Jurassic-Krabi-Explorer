@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เกี่ยวกับภาพยนตร์ - Jurassic Krabi Explorer</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Modal Styles - copied from previous immersives to ensure this page is standalone runnable */
+    .modal-overlay {
+      display: none;
+      /* ซ่อนไว้ตอนแรก */
+      position: fixed;
+      z-index: 1000;
+      /* ให้แสดงทับองค์ประกอบอื่น */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      /* พื้นหลังทึบแสง */
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* ปรับขนาดรูปภาพให้พอดีกับ modal */
+      border-radius: 10px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Gallery styles for images within content sections */
+    .content-section .gallery {
+      display: grid;
+      /* Use grid for better control over multiple images */
+      grid-template-columns: repeat(2, 1fr);
+      /* Default 2 columns for desktop */
+      gap: 15px;
+      margin-top: 20px;
+      justify-items: center;
+      /* Center items within grid cells */
+    }
+
+    /* Specific style for Director/Cast gallery to show 3 columns */
+    .content-section .gallery.cast-gallery {
+      grid-template-columns: repeat(3, 1fr);
+      /* 3 columns for cast/director */
+    }
+
+    .content-section .gallery img {
+      width: 100%;
+      /* Make images fill their grid cell, but respect max-width */
+      max-width: 400px;
+      /* เพิ่มขนาดรูปภาพให้ใหญ่ขึ้น */
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .content-section .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Style for names under images */
+    .gallery-item {
+      text-align: center;
+      margin-bottom: 10px;
+      /* Space between image and name */
+    }
+
+    .gallery-item p {
+      font-size: 1.5em;
+      /* Adjusted to 1.5em as per previous request */
+      color: #ccc;
+      margin-top: 5px;
+      text-align: center;
+      /* Ensure name is centered */
+    }
+
+    /* Responsive design for gallery */
+    @media (max-width: 768px) {
+      .content-section .gallery {
+        grid-template-columns: repeat(1, 1fr);
+        /* 1 column for smaller screens */
+      }
+      
+
+      .content-section .gallery.cast-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns for cast/director on small screens */
+      }
+
+      .content-section .gallery img {
+        max-width: 100%;
+        /* Allow images to fill width on small screens */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content-section .gallery.cast-gallery {
+        grid-template-columns: repeat(1, 1fr);
+        /* 1 column for cast/director on very small screens */
+      }
+      
+    }
+.content-section .gallery.synopsis-gallery {
+        display: flex;
+        justify-content: center;
+        grid-template-columns: 1fr; /* Override the 2-column grid to make it single column */
+    }
+    .content-section .gallery.synopsis-gallery img {
+        max-width: 800px; /* กำหนดขนาดใหญ่สุดให้รูปภาพ */
+        width: 100%;
+        height: auto;
+    }
+    /* เพิ่มสไตล์ใหม่สำหรับจัดหัวข้อให้อยู่ตรงกลาง */
+    .content-section h2 {
+        text-align: center;
+    }
+
+    /* สไตล์ทั่วไปสำหรับ body และ font */
+    body {
+      margin: 0;
+      font-family: 'Prompt', sans-serif;
+      background-color: #1a1f1b;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: url('https://cms.dmpcdn.com/travel/2025/07/09/cf632ea0-5c78-11f0-8618-abd5240192a5_webp_original.webp') no-repeat center/cover;
+      padding: 150px 20px;
+      text-align: center;
+      position: relative;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px 20px;
+      border-radius: 15px;
+    }
+
+    header h1 {
+      font-size: 50px;
+      color: #fff;
+      text-shadow: 3px 3px 10px #000;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 30px;
+      color: #f0f0f0;
+      text-shadow: 2px 2px 5px #000;
+      margin: 10px 0 0;
+    }
+
+    nav {
+      background-color: #3A5F0B;
+      /* เขียวเข้ม */
+      text-align: center;
+      padding: 15px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #28a745;
+    }
+
+    /* ส่วนแสดงข่าวสารจาก Facebook */
+    .news-section {
+      padding: 60px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .news-section h2 {
+      font-size: 3em;
+      color: #28a745;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .fb-page,
+    .fb-post {
+      margin: auto;
+    }
+
+    .section {
+      padding: 60px 0;
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: 3em;
+      color: #28a745;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .section-description {
+      text-align: center;
+      font-size: 1.2em;
+      color: #aaa;
+      margin-bottom: 50px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .card {
+      background: #2d3e31;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #f0f0f0;
+      font-size: 1.8em;
+      margin-top: 0;
+    }
+
+    .btn-ar {
+      background: #28a745;
+      color: #fff;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 50px;
+      display: inline-block;
+      margin-top: auto;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-ar:hover {
+      background-color: #218838;
+    }
+
+    /* สไตล์สำหรับ footer ที่อัปเดตให้เหมือนหน้าอื่น */
+    footer {
+      background-color: #3A5F0B;
+      /* เขียวเข้ม */
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Common styles for content sections */
+    .content-section {
+      background-color: #2d3e31;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      /* Center align text in content sections */
+    }
+
+    .content-section p {
+      font-size: 1.2em;
+      /* Increase font size for readability */
+      text-align: center;
+      /* เปลี่ยนจาก justify เป็น center เพื่อให้ข้อความอยู่ตรงกลาง */
+      margin-bottom: 20px;
+    }
+
+    /* สไตล์สำหรับปุ่มกลับ */
+    .back-link {
+      display: block;
+      width: 200px;
+      margin: 40px auto 0;
+      text-align: center;
+      color: #fff;
+      background-color: #28a745;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-link:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="overlay">
+      <h1>เกี่ยวกับภาพยนตร์ Jurassic World: Rebirth</h1>
+      <p>เจาะลึกทุกรายละเอียดของภาพยนตร์ฟอร์มยักษ์!</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/MYaJxwY">หน้าแรก</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/MYamgLx">สถานที่ถ่ายทำ</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/dPYRxwj">เกี่ยวกับภาพยนตร์</a>
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/ogjqrMd">ติดต่อเรา</a>
+  </nav>
+   <div class="container">
+        <!-- New Section: Movie Synopsis -->
+      <div class="content-section">
+    <h2>เรื่องย่อภาพยนตร์ 🎬</h2>
+    <p>
+        "โลกใน Jurassic World: Rebirth ดำเนินไป 5 ปีหลังเหตุการณ์ภาคก่อน โดยไดโนเสาร์ที่เหลืออยู่จำกัดวงอาศัยในเขตร้อน ทีมปฏิบัติการพิเศษที่นำโดยผู้เชี่ยวชาญอย่าง ซาร่า เบนเน็ต และ ดร. เฮนรี่ ลูมิส ได้รับภารกิจให้ตามหาไดโนเสาร์ยักษ์ 3 ชนิดเพื่อนำ DNA มาสร้างยารักษาชีวิตมนุษย์
+
+ภารกิจนี้ซับซ้อนขึ้นเมื่อพวกเขาพบครอบครัวพลเรือนที่ติดอยู่บนเกาะต้องห้าม ที่ซึ่งครั้งหนึ่งเคยเป็นศูนย์วิจัยลับของ Jurassic Park และพวกเขาต้องเผชิญกับไดโนเสาร์กลายพันธุ์และความลับสุดอันตรายที่ถูกปกปิดมานาน"
+    </p>
+    <div class="gallery synopsis-gallery">
+        <div class="gallery-item">
+            <img src="https://cdn.blogo.it/znYsGEA8FZ2gtrWc64J6BIU_fUk=/1280x720/smart/https://www.blogo.it/app/uploads/sites/3/2024/11/jurassic-world-rebirth-nuova-foto-di-scalett-johansson-e-tutto-quello-che-ce-da-sapere-sul-reboot-di-gareth-edwards.png" alt="ภาพยนตร์ 5" class="clickable-image">
+        </div>
+    </div>
+</div>
+  
+  <div class="container">
+    <div class="content-section">
+      <h2>ภาพรวมของภาพยนตร์ 🎬</h2>
+      <p>
+        "Jurassic World: Rebirth" คือภาพยนตร์ฟอร์มยักษ์ที่สานต่อเรื่องราวจากแฟรนไชส์ Jurassic World อันโด่งดัง
+        โดยภาคนี้จะนำเสนอแนวคิดใหม่ในการอยู่ร่วมกันระหว่างมนุษย์และไดโนเสาร์ในโลกยุคปัจจุบัน
+        พร้อมฉากแอ็คชั่นสุดตื่นเต้นและวิชวลเอฟเฟกต์ที่สมจริงเหนือจินตนาการ
+        ภาพยนตร์เรื่องนี้มีกำหนดฉายทั่วโลกใน <strong>ปี 2025</strong> และเป็นภาพยนตร์แนว <strong>แอ็คชั่น ผจญภัย ไซไฟ</strong> 
+        
+      </p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="https://www.capitolbio.se/_next/image?url=https%3A%2F%2Fcapitol.mycloudcinema.com%2Fmedia%2Fstills%2F3871%2F1920%2Fc7d89d74-fd41-4f8b-aa55-a0eac10620c8.jpg&w=3840&q=80" alt="ภาพยนตร์ 1" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/wm/2025/02/jurassic-world_-rebirth-can-make-up-for-jurassic-park-iii.jpg?q=70&fit=contain&w=1200&h=628&dpr=1" alt="ภาพยนตร์ 2" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://preview.redd.it/in-jurassic-world-rebirth-2025-theres-a-scene-where-we-see-v0-ghhftv9ilfaf1.jpeg?width=1080&crop=smart&auto=webp&s=e27ae78d5a15afba343c60099a28db57e95c0d3b" alt="ภาพยนตร์ 3" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://dx35vtwkllhj9.cloudfront.net/universalstudios/jurassic-world-rebirth/images/regions/us/share.png" alt="ภาพยนตร์ 4" class="clickable-image">
+        </div>
+
+      </div>
+     
+
+    </div>
+
+    <div class="content-section">
+      <h2>ผู้กำกับและนักแสดงหลัก 🌟</h2>
+      <p>
+        ภาพยนตร์เรื่องนี้กำกับโดย <strong>Gareth Edwards</strong> ผู้ซึ่งมีวิสัยทัศน์อันโดดเด่นในการสร้างสรรค์โลกไดโนเสาร์ให้มีชีวิตชีวาอีกครั้ง
+        นำแสดงโดยนักแสดงมากฝีมืออย่าง <strong>Scarlett Johansson</strong> ในบทบาท โซรา เบนเน็ตต์ และ <strong>Mahershala Ali</strong> ในบทบาท ดันแคน คินเคด
+        ร่วมด้วยนักแสดงสมทบอีกมากมายที่จะมาเพิ่มความเข้มข้นให้กับเรื่องราว
+
+      </p>
+
+      <div class="gallery cast-gallery">
+        <!-- Added cast-gallery class -->
+        <div class="gallery-item">
+          <img src="https://fr.web.img4.acsta.net/pictures/23/09/26/12/05/5889930.jpg" alt="Gareth Edwards" class="clickable-image">
+          <p><strong>Gareth Edwards</strong><br>ผู้กำกับ</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://media.vanityfair.com/photos/54cacee1b8f23e3a0315c467/master/w_2560%2Cc_limit/image.jpg" class="clickable-image">
+          <p><strong>Scarlett Johansson</strong><br>โซรา เบนเน็ตต์</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Mahershala_Ali_by_Gage_Skidmore.jpg/960px-Mahershala_Ali_by_Gage_Skidmore.jpg" alt="Mahershala Ali" class="clickable-image">
+          <p><strong>Mahershala Ali</strong><br>ดันแคน คินเคด</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://64.media.tumblr.com/e3133272deb6db15030a6699e32c6381/7efb5fc2d01fab7a-22/s500x750/20c3a6407dc1c4b11fa5c717f58dad6008ad4b7b.jpg" alt="Jonathan Bailey" class="clickable-image">
+          <p><strong>Jonathan Bailey</strong><br>ดร. เฮนรี่ ลูมิส</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.pinimg.com/564x/09/53/50/0953500e5ad175c838facb8f162adaeb.jpg" alt="Rupert Friend" class="clickable-image">
+          <p><strong>Rupert Friend</strong><br>มาร์ติน เครบส์</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://cdn01.justjared.com/wp-content/uploads/2021/01/lincoln-lawyer/manuel-garcia-rulfo-starring-lincoln-lawyer-netflix-01.jpg" alt="Manuel Garcia-Rulfo" class="clickable-image">
+          <p><strong>Manuel Garcia-Rulfo</strong><br>รูเบน เดลกาโด</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://preview.redd.it/luna-blaise-in-schiaparelli-fw25-at-the-london-premiere-of-v0-k5ahux1xls7f1.jpg?width=640&crop=smart&auto=webp&s=92635eb88a68a7c5489fb368b203b84f3a49f191" alt="Luna Blaise" class="clickable-image">
+          <p><strong>Luna Blaise</strong><br>เทเรซา เดลกาโด</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://img.i-scmp.com/cdn-cgi/image/fit=contain,width=1024,format=auto/sites/default/files/d8/images/canvas/2025/07/09/55b05eaa-6c32-4ffd-a5a6-dfc58a80879e_efc8b897.jpg" alt="David Iacono" class="clickable-image">
+          <p><strong>David Iacono</strong><br>เซเวียร์ ด็อบส์</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://thumbs.dreamstime.com/b/ed-skrein-world-premiere-disney-s-maleficent-mistress-evil-held-el-capitan-theatre-hollywood-usa-september-160172085.jpg" alt="Ed Skrein" class="clickable-image">
+          <p><strong>Ed Skrein</strong><br>บ็อบบี้ แอตวอเตอร์</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>เบื้องหลังการถ่ายทำในกระบี่ 🌴</h2>
+      <p>
+        หนึ่งในความพิเศษของ "Jurassic World: Rebirth" คือการเลือกใช้จังหวัดกระบี่ ประเทศไทย เป็นสถานที่ถ่ายทำหลัก
+        ทีมงานได้เนรมิตอ่าวไร่เลย์ สวนปาล์มเขาคราม และสถานที่ธรรมชาติอื่นๆ ในกระบี่ให้กลายเป็นฉากหลังอันน่าทึ่ง
+        ซึ่งผสมผสานความงามของธรรมชาติไทยเข้ากับโลกของไดโนเสาร์ได้อย่างลงตัว
+        การถ่ายทำในประเทศไทยยังช่วยสร้างงานและกระตุ้นเศรษฐกิจในท้องถิ่นอีกด้วย
+      </p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="https://i.ytimg.com/vi/6eNPrQ85mRk/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEogZSg9MA8=&rs=AOn4CLAXTCmC1YL_poiXGwP2P9b09_1UGg" alt="เบื้องหลัง 1" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://s1.dmcdn.net/v/YHbZs1e2Cu9tIwyx1/x1080" alt="เบื้องหลัง 2" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://s1.dmcdn.net/v/YcirU1eMlH3rKYs-p/x480" alt="เบื้องหลัง 3" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://dnyuz.com/wp-content/uploads/2025/08/Jurassic-World-Rebirths-Thailand-Filming-Locations-Are-So-Stunning-1140x599.jpeg" alt="เบื้องหลัง 4" class="clickable-image">
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>แนวคิดและแรงบันดาลใจ 💡</h2>
+      <p>
+        "Jurassic World Rebirth" ในชื่อภาพยนตร์สื่อถึงการกำเนิดใหม่ของไดโนเสาร์ในโลกที่เปลี่ยนไป
+        และคำถามที่ว่ามนุษย์จะสามารถอยู่ร่วมกับสิ่งมีชีวิตโบราณเหล่านี้ได้อย่างไร
+        ภาพยนตร์สำรวจประเด็นทางจริยธรรม วิทยาศาสตร์ และความสัมพันธ์ระหว่างมนุษย์กับธรรมชาติ
+        โดยได้รับแรงบันดาลใจจากความหลากหลายทางชีวภาพและความลึกลับของโลกดึกดำบรรพ์
+      </p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="https://i.ytimg.com/vi/qqAvhzszbXM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDizBiFZF74NtBFjF0sB02eosiu3A" alt="แนวคิด 1" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://media.gettyimages.com/id/2221848963/video/new-york-new-york-a-view-of-a-prop-for-the-dinosaur-character-dolores-the-aquilops-during.jpg?s=640x640&k=20&c=3eXpfniSTrLQAGegVSouBABqAb_MJ9tZzTApllb3C3U=" alt="แนวคิด 2" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://berliner-zeitung.imgix.net/2025/06/18/ebb9bd30-03d7-4e28-80f0-192688c10ad6.jpeg?auto=format&fit=max&w=1880&auto=compress" alt="แนวคิด 3" class="clickable-image">
+        </div>
+        <div class="gallery-item">
+          <img src="https://i0.wp.com/overmental.com/wp-content/uploads/2015/06/jack-horner.jpg?ssl=1" alt="แนวคิด 4" class="clickable-image">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="https://codepen.io/aotrwhqz-the-looper/pen/MYaJxwY" class="back-link">← กลับสู่หน้าแรก</a>
+  </div>
+
+  <!-- The Modal Structure -->
+  <div id="imageModal" class="modal-overlay">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <script>
+    // Get the modal, image, and close button elements
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("img01");
+    const closeBtn = document.getElementsByClassName("modal-close")[0];
+    // Get all images that should be clickable (content-section images)
+    const clickableImages = document.querySelectorAll(".content-section img, .gallery img"); // Ensure all images are selected
+    // Loop through each clickable image and add a click event listener
+    clickableImages.forEach(img => {
+      img.onclick = function() {
+        modal.style.display = "flex"; // Display as flex to center content
+        modalImg.src = this.src; // Set the modal image source to the clicked image's source
+      }
+    });
+    // When the user clicks on <span> (x), close the modal
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the image, close it
+    modal.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</div>
+</div>
+
+<footer>
+  © 2025 Jurassic Krabi Explorer | สนับสนุนโดย สำนักงานประชาสัมพันธ์ จังหวัดกระบี่
+</footer>
+</body>
+
+</html>
+
+</html>

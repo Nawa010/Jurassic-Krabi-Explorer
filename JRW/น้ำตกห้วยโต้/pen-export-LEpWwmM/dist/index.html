@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>น้ำตกห้วยโต้</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>น้ำตกห้วยโต้ - Jurassic Krabi Explorer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      margin: 0;
+      background-color: #1a1f1b;
+      color: #f0f0f0;
+      line-height: 1.8;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://external-preview.redd.it/jurassic-world-rebirth-is-missing-one-vital-element-that-v0-zUzwLCOBPUTG6-yXYmhh6A65SUQReIlfjrWdgWa3mns.jpeg?width=1080&crop=smart&auto=webp&s=8d6e391383879286d1f5512450cfbc796af81f36') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 150px 20px;
+      border-radius: 15px;
+      margin-bottom: 40px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      text-align: center;
+      color: #28a745;
+      margin-top: 50px;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    p {
+      text-align: justify;
+    }
+
+    .content-section {
+      background-color: #2d3e31;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .content-section p {
+      font-size: 1.2em;
+      text-align: center;
+    }
+
+    .content-section img {
+      width: 100%;
+      max-width: 800px;
+      display: block;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 30%;
+      min-width: 250px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .upload-section {
+      text-align: center;
+      padding: 40px;
+      background-color: #2d3e31;
+      border-radius: 15px;
+      margin-top: 50px;
+    }
+
+    input[type="file"] {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #28a745;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+    }
+
+    .back-link {
+      display: block;
+      width: 200px;
+      margin: 40px auto 0;
+      text-align: center;
+      color: #fff;
+      background-color: #28a745;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-link:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 768px) {
+      .gallery img {
+        width: 100%;
+      }
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>น้ำตกห้วยโต้ - Namtok Huai To</h1>
+    </header>
+
+    <div class="content-section">
+      <p>วันนี้จะมาพาทำความรู้จักและสัมผัสกับความสวยงามของ “น้ำตกห้วยโต้” ซึ่งจะเป็นฉากหนึ่งในภาพยนตร์ Jurassic World ภาค 4 ซึ่ง “น้ำตกห้วยโต้” ตั้งอยู่ในเขตอุทยานแห่งชาติเขาพนมเบญจา ต.ทับปริก อ.เมือง จ.กระบี่ เป็นน้ำตกที่สวยที่สุดในอุทยานแห่งชาติเขาพนมเบญจา และอยู่ไม่ไกลจากตัวเมืองกระบี่มากนัก น้ำตกห้วยโต้ มีต้นกำเนิดมาจากเทือกเขาพนมเบญจา มีทั้งหมด 11 ชั้น เช่น วังสามหาบ วังจงลอย วังดอยปรง วังเทวดา และวังโตนพลิ้ว มีบรรยาศที่เหมาะสำหรับถ่ายทำภาพยนต์เป็นอย่างมาก โดยมีเสน่ห์จากความเป็นป่าฝนเขตร้อนชื้น น้ำตกหลายชั้น รวมถึงทิวทัศน์ธรรมชาติที่งดงาม เข้ากันได้ดีกับฉากป่าไดโนเสาร์ในภาพยนตร์
+      </p>
+    </div>
+
+    <h2>🎬 ฉากจากภาพยนตร์</h2>
+    <div class="content-section">
+      <img src="https://www.tnnthailand.com/static/2025/907ba50d-2ce5-4759-8e40-24769a65b686.webp" alt="ฉากจากหนังที่บ้านบางกัน">
+      <p>น้ำตกกลางป่าลึกที่ใช้ถ่ายฉากหนีไดโนเสาร์ของตัวละครหลัก</p>
+    </div>
+
+    <h2>🏞 ทัศนียภาพโดยรวม</h2>
+    <div class="gallery">
+      <img src="https://www.matichon.co.th/wp-content/uploads/2017/01/201701191110144-20151120115129.jpg" alt="วิวที่ 1">
+      <img src="https://img.wongnai.com/p/1920x0/2018/08/12/6bc8a3139fe14c04a80c5b775dc15b5c.jpg" alt="วิวที่ 2">
+      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/bb/a7/6c/photo3jpg.jpg?w=900&h=500&s=1" alt="วิวที่ 3">
+    </div>
+
+    <a href="https://codepen.io/aotrwhqz-the-looper/pen/MYaJxwY" class="back-link">← กลับสู่หน้าแรก</a>
+  </div>
+
+  <div id="imageModal" class="modal-overlay">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <script>
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("img01");
+    const closeBtn = document.getElementsByClassName("modal-close")[0];
+    const clickableImages = document.querySelectorAll(".gallery img, .content-section img");
+    clickableImages.forEach(img => {
+      img.onclick = function() {
+        modal.style.display = "flex";
+        modalImg.src = this.src;
+      }
+    });
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    modal.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+
+</html>
+<!-- partial -->
+  
+</body>
+</html>
